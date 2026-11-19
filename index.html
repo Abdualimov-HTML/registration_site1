@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ma'lumotlar jadvali</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Ma'lumotlarni kiriting</h1>
+
+  <form id="form">
+    <label>Ism
+      <input type="text" id="ism" required>
+    </label>
+    <label>Familiya
+      <input type="text" id="familiya" required>
+    </label>
+    <label>Yosh
+      <input type="number" id="yosh" min="0" max="120" required>
+    </label>
+    <label>Shahar
+      <input type="text" id="shahar" required>
+    </label>
+    <button type="submit">Yuborish</button>
+  </form>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>№</th><th>Ism</th><th>Familiya</th><th>Yosh</th><th>Shahar</th></tr>
+      </thead>
+      <tbody id="tbody">
+        <tr id="empty"><td class="empty" colspan="5">Hozircha ma'lumot yo'q</td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<script>
+  const form = document.getElementById("form");
+  const tbody = document.getElementById("tbody");
+  let count = 0;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const empty = document.getElementById("empty");
+    if (empty) empty.remove();
+
+    count++;
+    const row = document.createElement("tr");
+    const values = [
+      count,
+      document.getElementById("ism").value.trim(),
+      document.getElementById("familiya").value.trim(),
+      document.getElementById("yosh").value,
+      document.getElementById("shahar").value.trim()
+    ];
+
+    values.forEach(function (v) {
+      const td = document.createElement("td");
+      td.textContent = v;
+      row.appendChild(td);
+    });
+
+    tbody.appendChild(row);
+    form.reset();
+    document.getElementById("ism").focus();
+  });
+</script>
+</body>
+</html>
